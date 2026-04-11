@@ -1,0 +1,82 @@
+[
+  {
+    "title": "The Last of Us Part II",
+    "price": 59.99,
+    "platform": "PlayStation",
+    "genre": "Action-Adventure",
+    "stock": 25,
+    "image": "https://images.unsplash.com/photo-1605339396518-47dc55744e43?q=80&w=2070&auto=format&fit=crop"
+  },
+  {
+    "title": "God of War Ragnarök",
+    "price": 69.99,
+    "platform": "PlayStation",
+    "genre": "Action",
+    "stock": 15,
+    "image": "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop"
+  },
+  {
+    "title": "Elden Ring",
+    "price": 59.99,
+    "platform": "PC",
+    "genre": "RPG",
+    "stock": 40,
+    "image": "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=2070&auto=format&fit=crop"
+  },
+  {
+    "title": "Cyberpunk 2077",
+    "price": 29.99,
+    "platform": "PC",
+    "genre": "RPG",
+    "stock": 50,
+    "image": "https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?q=80&w=2071&auto=format&fit=crop"
+  },
+  {
+    "title": "Halo Infinite",
+    "price": 49.99,
+    "platform": "Xbox",
+    "genre": "FPS",
+    "stock": 10,
+    "image": "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2070&auto=format&fit=crop"
+  },
+  {
+    "title": "Forza Horizon 5",
+    "price": 59.99,
+    "platform": "Xbox",
+    "genre": "Racing",
+    "stock": 30,
+    "image": "https://images.unsplash.com/photo-1544652478-6653e09f18a2?q=80&w=2070&auto=format&fit=crop"
+  },
+  {
+    "title": "Red Dead Redemption 2",
+    "price": 39.99,
+    "platform": "PC",
+    "genre": "Action-Adventure",
+    "stock": 20,
+    "image": "https://images.unsplash.com/photo-1538481199705-c710c4e963bc?q=80&w=2104&auto=format&fit=crop"
+  },
+  {
+    "title": "The Witcher 3: Wild Hunt",
+    "price": 19.99,
+    "platform": "PC",
+    "genre": "RPG",
+    "stock": 60,
+    "image": "https://images.unsplash.com/photo-1605898960710-539c76255198?q=80&w=1974&auto=format&fit=crop"
+  },
+  {
+    "title": "Minecraft",
+    "price": 26.95,
+    "platform": "PC",
+    "genre": "Sandbox",
+    "stock": 100,
+    "image": "https://images.unsplash.com/photo-1627398242454-45a1465c2479?q=80&w=2074&auto=format&fit=crop"
+  },
+  {
+    "title": "Super Mario Odyssey",
+    "price": 59.99,
+    "platform": "PlayStation",
+    "genre": "Platformer",
+    "stock": 12,
+    "image": "https://images.unsplash.com/photo-1612441793740-4965306631ad?q=80&w=1974&auto=format&fit=crop"
+  }
+]

@@ -1,0 +1,107 @@
+/* Notification Container */
+.notification-container {
+    position: fixed;
+    top: 100px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 10000;
+    pointer-events: none;
+}
+
+/* Base Notification Style */
+.notification {
+    pointer-events: auto;
+    min-width: 300px;
+    max-width: 450px;
+    padding: 16px 24px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    animation: toastIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.3s ease;
+}
+
+.notification:hover {
+    transform: translateX(-5px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+@keyframes toastIn {
+    from {
+        opacity: 0;
+        transform: translateX(50px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+/* Notification Types */
+.notification.success {
+    border-left: 5px solid #10b981;
+}
+
+.notification.error {
+    border-left: 5px solid #ef4444;
+}
+
+.notification.warning {
+    border-left: 5px solid #f59e0b;
+}
+
+.notification.info {
+    border-left: 5px solid #3b82f6;
+}
+
+/* Icon and Message */
+.notification-icon {
+    font-size: 20px;
+}
+
+.notification-message {
+    flex-grow: 1;
+    font-size: 15px;
+}
+
+.notification-close {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.notification-close:hover {
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .notification-container {
+        top: auto;
+        bottom: 30px;
+        right: 20px;
+        left: 20px;
+    }
+
+    .notification {
+        min-width: 0;
+        width: 100%;
+    }
+}
