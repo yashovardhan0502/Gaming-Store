@@ -1,8 +1,11 @@
 import dotenv from "dotenv";
 dotenv.config();
+
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
+import path from "path";
+import { fileURLToPath } from "url";
 
 import authRoutes from "./src/routes/auth.route.js";
 import gameRoutes from "./src/routes/game.route.js";
@@ -13,25 +16,35 @@ const app = express();
 
 const port = process.env.PORT || 5000;
 
-app.listen(port, () => {
-    console.log(`App listening on port ${port}`);
-});
-
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(process.env.MONGODB_URI).then(() => console.log('MongoDB connected')).catch(err => console.log(err));
+
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.log(err));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/games", gameRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/cart", cartRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Gaming Store Live");
+});
 
-app.get('/', (req, res) => {
-    res.send("Gaming Store Live");
-})
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
+app.use(express.static(path.join(__dirname, "../frontend/build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
+});
+
 
 app.listen(port, () => {
-    console.log(`App listening on port ${port}`);
+  console.log(`App listening on port ${port}`);
 });
