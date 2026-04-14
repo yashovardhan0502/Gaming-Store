@@ -122,6 +122,8 @@
   font-size: 0.95rem;
   cursor: pointer;
   transition: var(--transition-smooth);
+  min-width: 0;
+  width: 100%;
 }
 
 .price-inputs {
