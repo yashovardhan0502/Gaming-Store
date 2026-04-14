@@ -29,8 +29,8 @@ app.use("/api/games", gameRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/cart", cartRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Gaming Store Live");
+app.get("/api/health", (req, res) => {
+  res.status(200).json({ status: "OK", message: "Gaming Store API Live" });
 });
 
 
