@@ -47,8 +47,8 @@ export const registerUser = async (req, res) => {
             password: hashedPassword,
         });
 
-        // Fire and forget welcome email
-        sendWelcomeEmail(user.email, user.name);
+        // Fire welcome email (awaited to ensure cloud platforms don't terminate process prematurely)
+        await sendWelcomeEmail(user.email, user.name);
 
         res.status(201).json({
             _id: user._id,

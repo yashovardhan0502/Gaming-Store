@@ -274,7 +274,7 @@ export const confirmPayment = async (req, res) => {
 
         // Populate and send email
         const populatedOrder = await Order.findById(order._id).populate("items.game", "title");
-        sendOrderConfirmationEmail(
+        await sendOrderConfirmationEmail(
             req.user.email,
             req.user.name,
             populatedOrder.items,
