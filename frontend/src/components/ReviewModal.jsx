@@ -48,6 +48,22 @@ const ReviewModal = ({ game, onClose, onReviewAdded }) => {
     }
   };
 
+  const handleDeleteReview = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      await gameService.deleteReview(game._id);
+      
+      // Notify parent to refresh data
+      if (onReviewAdded) onReviewAdded();
+      
+    } catch (err) {
+      setError(err.message || 'Failed to delete review');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const hasAlreadyReviewed = isAuthenticated && game.reviews?.find(
     (r) => String(r.user) === String(currentUser?._id)
   );
@@ -132,9 +148,20 @@ const ReviewModal = ({ game, onClose, onReviewAdded }) => {
                   <div key={idx} className="review-item">
                     <div className="review-header">
                       <span className="review-author">{review.name}</span>
-                      <span className="review-date">
-                        {new Date(review.createdAt || Date.now()).toLocaleDateString()}
-                      </span>
+                      <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                        <span className="review-date">
+                          {new Date(review.createdAt || Date.now()).toLocaleDateString()}
+                        </span>
+                        {isAuthenticated && String(review.user) === String(currentUser?._id) && (
+                          <button 
+                            onClick={handleDeleteReview}
+                            disabled={loading}
+                            style={{ background: 'none', border: 'none', color: '#ff7675', cursor: 'pointer', fontSize: '0.8rem', padding: 0, textDecoration: 'underline' }}
+                          >
+                            Delete
+                          </button>
+                        )}
+                      </div>
                     </div>
                     <div className="review-stars">
                       {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}

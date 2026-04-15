@@ -162,3 +162,38 @@ export const createGameReview = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+export const deleteGameReview = async (req, res) => {
+    try {
+        const game = await Game.findById(req.params.id);
+
+        if (!game) {
+            return res.status(404).json({ message: "Game not found" });
+        }
+
+        const reviewIndex = game.reviews.findIndex(
+            (r) => r.user.toString() === req.user._id.toString()
+        );
+
+        if (reviewIndex === -1) {
+            return res.status(404).json({ message: "Review not found" });
+        }
+
+        game.reviews.splice(reviewIndex, 1);
+        game.numReviews = game.reviews.length;
+
+        if (game.numReviews === 0) {
+            game.rating = 0;
+        } else {
+            game.rating =
+                game.reviews.reduce((acc, item) => item.rating + acc, 0) /
+                game.reviews.length;
+        }
+
+        await game.save();
+        res.status(200).json({ message: "Review deleted successfully" });
+    } catch (error) {
+        console.error("Delete Game Review Error:", error);
+        res.status(500).json({ message: error.message });
+    }
+};
