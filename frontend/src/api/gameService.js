@@ -45,6 +45,15 @@ const gameService = {
       throw error.response?.data || { message: 'Failed to delete game' };
     }
   },
+
+  submitReview: async (id, reviewData) => {
+    try {
+      const response = await apiClient.post(`/games/${id}/reviews`, reviewData);
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || { message: 'Failed to submit review' };
+    }
+  },
 };
 
 export default gameService;

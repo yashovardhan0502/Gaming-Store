@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { gameService } from '../api';
 import { addToCart, getCart } from '../api/cartService';
 import { useNotification } from './NotificationContext';
+import ReviewModal from './ReviewModal';
 import './GameList.css';
 
 const GameList = () => {
@@ -11,6 +12,7 @@ const GameList = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [selectedReviewGame, setSelectedReviewGame] = useState(null);
   
   // Filter States
   const [filters, setFilters] = useState({
@@ -229,6 +231,17 @@ const GameList = () => {
                     <span className="game-genre">{game.genre}</span>
                   </div>
 
+                  <div 
+                    className="game-rating-summary" 
+                    onClick={() => setSelectedReviewGame(game)}
+                    style={{ cursor: 'pointer', color: '#fdcb6e', fontSize: '0.9rem', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '5px' }}
+                  >
+                    <span>★ {game.rating ? game.rating.toFixed(1) : '0.0'}</span>
+                    <span style={{ color: '#b2bec3', fontSize: '0.8rem' }}>
+                      ({game.numReviews || 0} reviews)
+                    </span>
+                  </div>
+
                   <div className="game-footer">
                     <span className="game-price">${game.price.toFixed(2)}</span>
                     <span className={`game-stock ${availableStock === 0 ? 'out-of-stock' : ''}`}>
@@ -250,6 +263,14 @@ const GameList = () => {
             );
           })}
         </motion.div>
+      )}
+
+      {selectedReviewGame && (
+        <ReviewModal 
+          game={selectedReviewGame} 
+          onClose={() => setSelectedReviewGame(null)} 
+          onReviewAdded={() => fetchInitialData()}
+        />
       )}
     </div>
   );

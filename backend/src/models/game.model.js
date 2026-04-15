@@ -1,5 +1,25 @@
 import mongoose from "mongoose";
 
+const reviewSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    },
+    name: {
+        type: String,
+        required: true,
+    },
+    rating: {
+        type: Number,
+        required: true,
+    },
+    comment: {
+        type: String,
+        required: true,
+    },
+}, { timestamps: true });
+
 const gameSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -37,6 +57,13 @@ const gameSchema = new mongoose.Schema({
         default: 0,
         min: 0,
         max: 5,
+    },
+
+    reviews: [reviewSchema],
+
+    numReviews: {
+        type: Number,
+        default: 0,
     },
 },
     { timestamps: true }

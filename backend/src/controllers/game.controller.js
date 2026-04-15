@@ -121,3 +121,44 @@ export const deleteGame = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+export const createGameReview = async (req, res) => {
+    try {
+        const { rating, comment } = req.body;
+
+        const game = await Game.findById(req.params.id);
+
+        if (!game) {
+            return res.status(404).json({ message: "Game not found" });
+        }
+
+        const alreadyReviewed = game.reviews.find(
+            (r) => r.user.toString() === req.user._id.toString()
+        );
+
+        if (alreadyReviewed) {
+            return res.status(400).json({ message: "You already reviewed this game" });
+        }
+
+        const review = {
+            name: req.user.name,
+            rating: Number(rating),
+            comment,
+            user: req.user._id,
+        };
+
+        game.reviews.push(review);
+
+        game.numReviews = game.reviews.length;
+
+        game.rating =
+            game.reviews.reduce((acc, item) => item.rating + acc, 0) /
+            game.reviews.length;
+
+        await game.save();
+        res.status(201).json({ message: "Review added successfully" });
+    } catch (error) {
+        console.error("Create Game Review Error:", error);
+        res.status(500).json({ message: error.message });
+    }
+};
