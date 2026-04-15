@@ -1,7 +1,6 @@
 import User from "../models/user.model.js";
 import generateToken from "../utils/generateToken.js";
 import bcrypt from "bcryptjs";
-import { sendWelcomeEmail } from "../utils/emailService.js";
 
 export const loginUser = async (req, res) => {
     try {
@@ -46,9 +45,6 @@ export const registerUser = async (req, res) => {
             email,
             password: hashedPassword,
         });
-
-        // Fire welcome email (awaited to ensure cloud platforms don't terminate process prematurely)
-        await sendWelcomeEmail(user.email, user.name);
 
         res.status(201).json({
             _id: user._id,

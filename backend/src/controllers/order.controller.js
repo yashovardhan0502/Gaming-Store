@@ -1,6 +1,5 @@
 import Order from "../models/order.model.js";
 import Game from "../models/game.model.js";
-import { sendOrderConfirmationEmail } from "../utils/emailService.js";
 
 export const placeOrder = async (req, res) => {
     try {
@@ -42,19 +41,6 @@ export const placeOrder = async (req, res) => {
             paymentMethod,
             paymentStatus: paymentStatus || "Completed",
         });
-
-        // We need to populate the game info for the email
-        const populatedOrder = await Order.findById(order._id).populate("items.game", "title");
-
-        if (populatedOrder.paymentStatus === "Completed") {
-            // Fire and forget email
-            sendOrderConfirmationEmail(
-                req.user.email,
-                req.user.name,
-                populatedOrder.items,
-                totalAmount
-            );
-        }
 
         res.status(201).json(order);
 

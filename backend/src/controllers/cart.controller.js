@@ -3,7 +3,6 @@ import User from "../models/user.model.js";
 import Order from "../models/order.model.js";
 import Stripe from "stripe";
 import dotenv from "dotenv";
-import { sendOrderConfirmationEmail } from "../utils/emailService.js";
 
 dotenv.config();
 
@@ -271,15 +270,6 @@ export const confirmPayment = async (req, res) => {
             paymentStatus: "Completed",
             stripeSessionId: sessionId
         });
-
-        // Populate and send email
-        const populatedOrder = await Order.findById(order._id).populate("items.game", "title");
-        await sendOrderConfirmationEmail(
-            req.user.email,
-            req.user.name,
-            populatedOrder.items,
-            totalAmount
-        );
 
         user.cart = [];
         await user.save();
